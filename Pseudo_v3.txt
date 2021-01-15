@@ -1,0 +1,301 @@
+//TASK 1: function for 'Testing a student'
+PROCEDURE Test
+
+	//inputting multiplication table and validation
+	OUTPUT "Enter the multiplication table: (2-12) "
+	INPUT table
+	WHILE table < 2 OR table > 12 DO
+		OUTPUT "Invalid input. Try again!"
+		OUTPUT "Enter the multiplication table: (2-12) "
+		INPUT table
+	ENDWHILE
+
+	//initialize array of multiples and score counter
+	DECLARE multi : ARRAY[0:4] OF INTEGER
+	score <- 0
+
+	//repeat 5 times for 5 questions
+	FOR i <- 0 TO 4
+
+		//add a random number in 1-12 to array without duplicates
+		REPEAT
+			flag <- FALSE
+			multi[i] <- random(1, 12)	//generates a random number from 1 to 12
+			FOR j <- 0 TO i-1
+				IF multi[i] = multi[j]
+				  THEN
+					flag <- TRUE
+				ENDIF
+			NEXT
+		UNTIL flag = FALSE
+		
+		//ask the question and input answer
+		OUTPUT ""
+		OUTPUT "Question ", i + 1
+		OUTPUT table, " x ", multi[i], " = "
+		INPUT stdAns
+
+		//check if the answer is correct and add to score
+		IF stdAns = (table * multi[i]) 
+		  THEN
+			score <- score + 1
+		ENDIF
+	NEXT
+
+	//print final score and output personalized message
+	OUTPUT "\n", stdName, " your score is ", score, "/5"
+	IF score = 5 
+	  THEN
+		OUTPUT "Well done full marks"
+	  ELSE 
+	    IF score >= 3 AND score <= 4 
+		  THEN
+			OUTPUT "Have another practice"
+		  ELSE
+		    OUTPUT "Needs improvement"
+		ENDIF
+	ENDIF
+
+ENDPROCEDURE
+
+//TASK 2: function for 'Student Learning'
+PROCEDURE Learn
+
+	//inputting multiplication table and validation
+	OUTPUT "Enter the multiplication table: (2-12) "
+	INPUT table
+	WHILE table < 2 OR table > 12 DO
+		OUTPUT "Invalid input. Try again!"
+		OUTPUT "Enter the multiplication table: (2-12) "
+		INPUT table
+	ENDWHILE
+
+	//initialize array of multiples
+	DECLARE multi : ARRAY[0:4] OF INTEGER
+
+	FOR i <- 0 TO 4
+		tryCount <- 3	//initialize the number of tries
+		break <- FALSE
+
+		//add a random number in 1-12 to array without duplicates
+		REPEAT
+			flag <- FALSE
+			multi[i] <- random(1, 12)	//generates a random number from 1 to 12
+			FOR j <- 0 TO i-1
+				IF multi[i] = multi[j] 
+				  THEN
+					flag <- TRUE
+				ENDIF
+			NEXT
+		UNTIL flag = FALSE
+		
+		//repeat until correct answer or tries exhausted
+		REPEAT
+			//ask the questiona and input answer
+			OUTPUT "\nQuestion ", i + 1
+			OUTPUT table, " x ", multi[i], " = "
+			INPUT stdAns
+			tryCount <- tryCount - 1	//reduce the number of remaining tries
+
+			//Display personalized message
+			IF stdAns = (table * multi[i]) 
+			  THEN
+				OUTPUT "Well done ", stdName, "! Correct answer."
+				break <- TRUE
+			  ELSE
+				IF tryCount = 0
+				  THEN
+					OUTPUT "The correct answer was ", table * multi[i]
+					break <- TRUE
+				  ELSE
+					IF stdAns > table * multi[i]
+					  THEN
+						OUTPUT stdName, " your answer is too large. Try again."
+					  ELSE
+						OUTPUT stdName, " your answer is too small. Try again."
+					ENDIF
+				ENDIF
+			ENDIF
+		UNTIL break = TRUE
+	NEXT
+
+ENDPROCEDURE
+
+//TASK 3: function for 'Varying the quiz'
+PROCEDURE Test2
+	
+	//asking if mixed question and validation
+	OUTPUT "Would you like a mixed bag of questions? (Y/N) "
+	INPUT isMixed
+	WHILE isMixed <> "Y" OR isMixed <> "N" DO
+		OUTPUT "Invalid input. Try again!"
+		OUTPUT "Would you like a mixed bag of questions? (Y/N) "
+		INPUT isMixed
+	ENDWHILE
+
+	IF isMixed = "Y"
+	  THEN
+		//inputting the number of questions and validation
+		OUTPUT "Enter the number of questions: (1-132) "
+		INPUT QNum
+		WHILE QNum < 1 OR QNum > 132 DO
+			OUTPUT "Invalid input. Try again!"
+			OUTPUT "Enter the number of questions: (1-132) "
+			INPUT QNum
+		ENDWHILE
+
+	  ELSE
+		//inputting multiplication table and validation
+		OUTPUT "Enter the multiplication table: (2-12) "
+		INPUT table
+		WHILE table < 2 OR QNum > 12 DO
+			OUTPUT "Invalid input. Try again!"
+			OUTPUT "Enter the multiplication table: (2-12) "
+			INPUT table
+		ENDWHILE
+
+		//inputting the number of questions and validation
+		OUTPUT "Enter the number of questions: (1-12) "
+		INPUT QNum
+		WHILE QNum < 1 OR QNum > 12 DO
+			OUTPUT "Invalid input. Try again!"
+			OUTPUT "Enter the number of questions: (1-12) "
+			INPUT QNum
+		ENDWHILE
+	ENDIF
+
+	//initialize array of operands and score counter
+	DECLARE op1 : ARRAY[0:QNum-1] OF INTEGER
+	DECLARE op2 : ARRAY[0:QNum-1] OF INTEGER
+	score <- 0
+
+	//repeat for QNum questions
+	FOR i <- 0 TO QNum - 1
+
+		//add a random number in 1-12 to array without duplicates
+		REPEAT
+			flag <- FALSE
+			IF isMixed = "Y"
+			  THEN
+				op1[i] <- random(2, 12)	//generates a random integer from 2 to 12
+			  ELSE
+				op1[i] <- table
+			ENDIF
+			op2[i] <- random(1, 12)	//generates a random integer from 1 to 12
+
+			FOR j <- 0 TO i-1
+				IF op1[i] = op1[j] AND op2[i] = op2[j]
+				  THEN
+					flag <- TRUE
+				ENDIF
+			NEXT
+		UNTIL flag = FALSE
+
+		//ask the question and input answer
+		OUTPUT "\nQuestion ", i + 1
+		OUTPUT op1[i], " x ", op2[i], " = "
+		INPUT stdAns
+
+		//check if answer is correct and add to score
+		IF op1[i] * op2[i] = stdAns
+		  THEN
+			score <- score + 1
+		ENDIF
+	NEXT
+
+	//print final score and output personalized message
+	OUTPUT "\n", stdName, " your score is ", score, "/", QNum
+	IF score = QNum
+	  THEN
+		OUTPUT "Well done full marks"
+	  ELSE
+		IF score >= QNum * 0.9
+		  THEN
+			OUTPUT "Great work! Keep it up."
+		  ELSE
+			IF score >= Qnum * 0.1
+			  THEN
+				OUTPUT "Have another practice"
+			  ELSE
+				OUTPUT "Needs improvement"
+			ENDIF
+		ENDIF
+	ENDIF
+
+ENDPROCEDURE
+
+//----------------------------------PROGRAM CLI STARTS BELOW-------------------------------------
+
+//inputting name of student
+OUTPUT "What is your name? "
+INPUT stdName
+
+REPEAT
+	//inputting mode (Task 1, Task 2 & Task 3) and validation
+	OUTPUT "Select the mode for the quiz: (Test - 1/Learn - 2/Test2 - 3/Exit - 0) "
+	INPUT mode
+	WHILE mode <= 0 AND mode >= 3 DO
+		OUTPUT "Invalid input. Try again!"
+		OUTPUT "Select the mode for the quiz: (Test - 1/Learn - 2/Test2 - 3/Exit - 0) "
+		INPUT mode
+	ENDWHILE
+	
+	//call the procedure for the mode selected
+	OUTPUT ""
+	IF mode = 1
+	  THEN
+		CALL Test
+	  ELSE
+		IF mode = 2
+		  THEN
+			CALL Learn
+		  ELSE
+			IF mode = 3
+			  THEN
+				CALL Test2
+			ENDIF
+		ENDIF
+	ENDIF
+	OUTPUT ""
+UNTIL mode = 0
+
+//----------------------------------CHANGELOG-------------------------------------
+// v3 - improved random-number-generator logic
+//    - improved some comments
+//    - improved CLI to allow multiple tests
+// v2 - In task 3, first operand is a random number from 2 to 12 instead of 1 to 12
+//    - Fixed task 3, where it would go in an infinite loop
+//    - Improved some comments
+// v1 - First release
+
+//----------------------------------FOOTNOTES-------------------------------------
+// 0. "random(a, b)"	//function that returns a random integer in range a to b
+// 1. It is recommended, that you write your program in the exam in either Python or pseudocode. These two are the
+//   most readable languages, and less prone to making mistakes.
+// 2. Know the expected questions from the pre-release material, I'll discuss some below
+// 3. You will usually have questions about writing code, one Task at a time, so while preparation, it wise to write 
+//   three different programs for each, or atleast in three different functions like I've done
+// 4. I would recommend you to write the code yourself, and only use this as a reference. It will help you remember
+//   and understand better.
+// 5. Think of the program as a series of steps that you need to do one by one. All the steps are not mentioned in the 
+//   pre-release, so you should be able to remember by infering from it quickly, as it will be given to you in the exam.
+// 6. I have tried to comment the code with as much detail as possible, with the 'steps' of the algorithm. If you need
+//   any clarity, feel free to ask me. [All the 'adding random operands without duplicates may be a problem] 
+// 7. I tried my best to follow the pseudocode guide [//Computer Science/Pseudocode Guide.pdf]. Refer to it, and do tell
+//	 if I've made any mistakes
+//
+// ---QUESTIONS---
+// 12. First few questions involve writing a constant, a variable and their functions. There are several variables to choose
+//   from. For constant, you can use stdName
+// 13. Next comes writing some code, usually sticking to only one Task at a time. 
+// 14. And finally comes explaining the code. If you have good understanding of why any line of code exists, you should be
+//   able to answer this. A good practice is to include three lines of code in your answer, with comments (Represented by //
+//   pseudocode and # in python)
+//
+// ---Arrays---
+// 15. Some of you were saying that you were having difficulty with arrays. Read the 'coursebook', it is just like the sets
+//   in mathematics, with subtle differences. And remember, the index of a element (basically the position no. in that array)
+//   starts from 0
+//
+// 16. So looks like this program would prolly need a random number generator. How do you do that in pseudocode?
+//   Anindita ma'am has suggested to stick with fixed integers for the operands.

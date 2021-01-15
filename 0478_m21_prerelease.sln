@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BB3D6085-7E75-4955-A089-74335721ACC6}"
+	ProjectSection(SolutionItems) = preProject
+		0478_m21_prerelease.pdf = 0478_m21_prerelease.pdf
+		Pseudo_v3.txt = Pseudo_v3.txt
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBasic_v3", "VBasic_v3\VBasic_v3.vbproj", "{3BED5D66-7D95-4B3B-B543-5B45CA4F78D7}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Python_v3", "Python_v3\Python_v3.pyproj", "{ED7FF2C9-3A86-44C7-87CC-E8ECACEAA214}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BED5D66-7D95-4B3B-B543-5B45CA4F78D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BED5D66-7D95-4B3B-B543-5B45CA4F78D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BED5D66-7D95-4B3B-B543-5B45CA4F78D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BED5D66-7D95-4B3B-B543-5B45CA4F78D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED7FF2C9-3A86-44C7-87CC-E8ECACEAA214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED7FF2C9-3A86-44C7-87CC-E8ECACEAA214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F2FC86A-B344-4FDE-B3B8-404712511AA7}
+	EndGlobalSection
+EndGlobal
